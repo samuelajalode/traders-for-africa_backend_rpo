@@ -53,7 +53,22 @@ const User = sequelize.define('User', {
   },
 });
 
+// Define the roles table schema
+const Role = sequelize.define('Role', {
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    allowNull: false,
+    primaryKey: true,
+  },
+  name: DataTypes.STRING,
+});
+
+// Define the relationship between users and roles
+User.belongsTo(Role);
+Role.hasMany(User);
 // Sync the schema with the database
 User.sync();
+Role.sync();
 
-export { sequelize, User };
+export { sequelize, User, Role };

@@ -1,31 +1,20 @@
-// models.d.ts
+// // Purpose: Declare the User and Role interfaces
+// import { Model } from 'sequelize';
 
-import { Model, models } from "mongoose";
+// // declare and export the User interface
+// export interface User extends Model  {
+//     firstName: string;
+//     lastName: string;
+//     password: string;
+//     email: string;
+//     phoneNumber: string;
+//     role: string;
+//     photo: string;
+//     companyName: string;
+// }
 
-declare module 'path/to/models' {
-    export class User extends Model {
-        firstName: string;
-        lastName: string;
-        password: string;
-        email: string;
-        phoneNumber: string;
-        role: string;
-        photo: string;
-        companyName: string;
-    }
-    
-}
+// // declare and export the Role interface
+// export interface Role extends Model {
+//     name: string;
+// }
 
-declare module 'path/to/models' {
-    export class Role extends Model {
-        firstName: string;
-        lastName: string;
-        password: string;
-        email: string;
-        phoneNumber: string;
-        role: string;
-        photo: string;
-        companyName: string;
-    }
-
-}

@@ -2,7 +2,8 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { User, Role } from '../models/models';
+import { Sequelize, DataTypes} from 'sequelize';
+import { User, Role } from '../db/database';
 
 const app = express();
 const saltRounds = 10; // number of rounds to use for bcrypt password hashing
@@ -26,7 +27,7 @@ app.post('/register', async (req, res) => {
       password: hashedPassword,
       phoneNumber,
       companyName,
-      role: Role.USER, // set the user's role to the default value for new users
+      role: Role, // set the user's role to the default value for new users
       isEmailConfirmed: false, // mark the user as unconfirmed until they confirm their email
     });
 
@@ -69,7 +70,7 @@ app.post('/change-password', async (req, res) => {
     const user = await User.findOne({ where: { email } });
 
     // check that the current password matches the one in the database
-    const passwordMatches = await bcrypt.compare(currentPassword, user.password);
+    const passwordMatches = await bcrypt.compare(currentPassword, User as any);
 
     if (!passwordMatches) {
       return res.status(401).json({ error: 'Current password is incorrect' });
@@ -81,7 +82,7 @@ app.post('/change-password', async (req, res) => {
     // update the user record in the database with the new password
     await User.update(
       { password: hashedNewPassword },
-      { where: { id: user.id } }
+      { where: { id: User} }
     );
 
     res.status(200).json({ message: 'Password changed successfully' });
