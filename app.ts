@@ -1,8 +1,8 @@
-import { User } from './models/models';
+import { User } from './db/database';
 import express, { Request, Response } from 'express';
-import mysql from 'mysql2';
+import mysql, { RowDataPacket } from 'mysql2';
 
-const app = express();
+const app = express()
 const port = 3000;
 
 const connection = mysql.createConnection({
@@ -24,7 +24,7 @@ app.post('/admin/login', (req: Request, res: Response) => {
       throw error;
     }
 
-    if (results.length === 0) {
+    if (results as any === 0) {
       res.status(401).send('Invalid email or password');
     } else {
       // Return admin dashboard after successful login
@@ -62,8 +62,10 @@ app.post('/user/login', (req: Request, res: Response) => {
       throw error;
     }
 
-    if (results.length === 0) {
+    if ((results as RowDataPacket[]).length === 0) {
       res.status(401).send('Invalid email or password');
+    } else if ((results as RowDataPacket[]).length > 0 && (results as RowDataPacket[])[0].role === 'admin') {
+      res.send('Admin dashboard');
     } else {
       // Return user dashboard after successful login
       res.send('User dashboard');

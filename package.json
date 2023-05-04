@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "main": "backend_server.ts",
   "author": "samuelajalode <113217825+samuelajalode@users.noreply.github.com>",
-  "license": "MIT",
+  "license": "Yes",
   "scripts": {
+    "build": "tsc && yarn copy",
+    "copy": "copyfiles -u 1 \"src/**/*.html\" \"src/**/*.css\" \"src/**/*.png\" \"src/**/*.jpg\" \"dist/\"",
     "start": "node dist/index.js",
-    "compile": "tsc",
     "dev": "nodemon src/index.ts"
   },
   "dependencies": {
@@ -19,6 +20,8 @@
     "pg": "^8.10.0",
     "prisma": "^4.13.0",
     "sequelize": "^6.31.0",
+    "ts-node": "^10.9.1",
     "typescript": "^5.0.4"
-  }
+  },
+  "repository": "https://github.com/samuelajalode/traders-for-africa_backend_rpo.git"
 }
